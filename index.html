@@ -66,21 +66,49 @@ body{display:flex;align-items:center;justify-content:center;font-family:'NeuePla
 /* ============================ DESCANSO ============================ */
 #idle{cursor:pointer}
 #idle .bar{background:var(--grafite)}
-#idle .idle-inner{position:relative;flex:1;display:flex;flex-direction:column;align-items:flex-start;text-align:left;padding:110px 96px 430px;z-index:2}
-#idle .idle-logo{width:480px;margin-bottom:0}
+#idle .idle-inner{position:relative;flex:1;display:flex;flex-direction:column;align-items:flex-start;text-align:left;padding:110px 96px 580px;z-index:2}
+#idle .idle-logo{width:480px;margin-bottom:0;align-self:center}
 #idle .chamada{margin:auto 0;font-family:'NeuePlakXBlack';font-size:82px;line-height:1.09;letter-spacing:-.5px;text-shadow:0 2px 26px rgba(0,45,55,.35)}
-#idle .idle-cta{position:absolute;left:96px;bottom:300px;display:flex;align-items:center;gap:30px;z-index:2}
+#idle .chamada{position:relative}
+/* ambient breathing glow behind the headline */
+#idle .chamada::before{content:'';position:absolute;left:-6%;top:50%;width:62%;height:150%;transform:translateY(-50%);
+  background:radial-gradient(closest-side, rgba(255,255,255,.16), rgba(255,255,255,0) 72%);
+  filter:blur(8px);opacity:.0;pointer-events:none;z-index:-1;animation:chamadaGlow 7s ease-in-out infinite}
+/* primary: each word slides up + de-blurs (decelerate) */
+#idle .chamada .w{display:inline-block;will-change:transform,opacity,filter;
+  animation:wordIn .56s cubic-bezier(.05,.7,.1,1) both}
+/* exit: whole block lifts + fades (accelerate) */
+#idle .chamada.leaving{animation:chamadaOut .34s cubic-bezier(.3,0,1,1) forwards}
+@keyframes wordIn{
+  0%{opacity:0;transform:translateY(30px);filter:blur(7px)}
+  60%{filter:blur(0)}
+  100%{opacity:1;transform:translateY(0);filter:blur(0)}
+}
+@keyframes chamadaOut{
+  0%{opacity:1;transform:translateY(0);filter:blur(0)}
+  100%{opacity:0;transform:translateY(-26px);filter:blur(5px)}
+}
+@keyframes chamadaGlow{
+  0%,100%{opacity:0;transform:translate(-4%,-50%) scale(.96)}
+  50%{opacity:.7;transform:translate(2%,-50%) scale(1.04)}
+}
+@media (prefers-reduced-motion: reduce){
+  #idle .chamada .w{animation:none}
+  #idle .chamada.leaving{animation:none;opacity:0}
+  #idle .chamada::before{animation:none;opacity:.0}
+}
+#idle .idle-cta{position:absolute;left:96px;bottom:392px;display:flex;align-items:center;gap:30px;z-index:2}
 #idle .idle-cta .pulse{width:118px;height:118px;border-radius:50%;background:var(--branco);display:flex;align-items:center;justify-content:center;animation:pulse 2.2s infinite}
 #idle .idle-cta .pulse svg{width:54px;height:54px}
 #idle .idle-cta span{font-family:'NeuePlakSemi';font-size:36px;letter-spacing:3px;white-space:nowrap;text-shadow:0 2px 18px rgba(0,45,55,.4)}
 @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(255,255,255,.5)}70%{box-shadow:0 0 0 44px rgba(255,255,255,0)}100%{box-shadow:0 0 0 0 rgba(255,255,255,0)}}
-#idle .idle-expo{position:absolute;left:96px;bottom:104px;z-index:2}
+#idle .idle-expo{position:absolute;left:50%;transform:translateX(-50%);bottom:104px;z-index:2}
 #idle .idle-expo svg{height:150px;display:block}
 
 /* ============================ INTRO ============================ */
 #intro .intro-inner{flex:1;display:flex;flex-direction:column;padding:72px 96px 0;position:relative;z-index:2}
 #intro h1{font-family:'NeuePlakXBlack';font-size:96px;line-height:.96;letter-spacing:-1px}
-#intro .intro-art{width:340px;align-self:center;margin:0 0 18px;pointer-events:none}
+#intro .intro-art{width:470px;align-self:center;margin:0 0 24px;pointer-events:none}
 #intro .sub{font-family:'NeuePlakTextLight';font-size:38px;color:#E2E2E0;margin-top:18px;line-height:1.32}
 #intro .regras{display:flex;flex-direction:column;gap:30px;margin-top:48px}
 #intro .regra{display:flex;flex-direction:row;align-items:center;gap:28px}
@@ -89,7 +117,7 @@ body{display:flex;align-items:center;justify-content:center;font-family:'NeuePla
 .btn{font-family:'NeuePlakSemi';border:none;cursor:pointer;display:inline-flex;align-items:center;gap:22px;background:var(--azul);color:var(--grafite-900);font-size:34px;letter-spacing:2px;padding:34px 64px;margin-top:auto;transition:transform .15s ease}
 .btn svg{width:42px;height:42px}
 .btn.ghost{background:transparent;border:3px solid var(--azul);color:var(--azul)}
-#intro .btn{margin-top:auto;margin-bottom:8px}
+#intro .btn{margin-top:auto;margin-bottom:80px}
 
 /* ============================ QUIZ ============================ */
 .q-head{display:flex;flex-direction:column;padding:48px 96px 36px;border-bottom:1px solid var(--linha);position:relative;z-index:2;flex-shrink:0;gap:28px}
@@ -135,7 +163,7 @@ body{display:flex;align-items:center;justify-content:center;font-family:'NeuePla
 .case-card .dado .v{font-family:'NeuePlakXBlack';font-size:40px;color:var(--azul)}
 .case-card .dado .k{font-family:'NeuePlakText';font-size:23px;color:#D9D9D7}
 .case-card .dado-txt{font-family:'NeuePlakTextLight';font-size:26px;line-height:1.4;color:#E8E8E6}
-.case-info{flex:1;display:flex;flex-direction:column;padding:44px 96px 52px;min-height:0}
+.case-info{flex:1;display:flex;flex-direction:column;padding:44px 96px 176px;min-height:0}
 .case-info .selo{display:inline-flex;align-items:center;gap:18px;font-family:'NeuePlakSemi';font-size:28px;letter-spacing:3px;color:var(--azul);margin-top:36px}
 .case-info .selo .ic{width:52px;height:52px;border-radius:50%;background:var(--azul);display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .case-info .selo.nok{color:#D9D9D7}
@@ -515,6 +543,83 @@ body{display:flex;align-items:center;justify-content:center;font-family:'NeuePla
         <button class="btn" id="btnNext"></button>
       </div>
     </div>
+    <div class="q-expo"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="74" style="display:block" viewBox="0 0 400.204 153.395">
+<defs>
+<clipPath id="exCASE-clip-0">
+<path clip-rule="nonzero" d="M 0.390625 0 L 399.019531 0 L 399.019531 152.792969 L 0.390625 152.792969 Z M 0.390625 0 "/>
+</clipPath>
+<clipPath id="exCASE-clip-1">
+<path clip-rule="nonzero" d="M 317 0 L 399.019531 0 L 399.019531 83 L 317 83 Z M 317 0 "/>
+</clipPath>
+<clipPath id="exCASE-clip-2">
+<path clip-rule="nonzero" d="M 348 100 L 399.019531 100 L 399.019531 152 L 348 152 Z M 348 100 "/>
+</clipPath>
+<clipPath id="exCASE-clip-3">
+<path clip-rule="nonzero" d="M 223 100 L 276 100 L 276 152.792969 L 223 152.792969 Z M 223 100 "/>
+</clipPath>
+<clipPath id="exCASE-clip-4">
+<path clip-rule="nonzero" d="M 57 100 L 110 100 L 110 152.792969 L 57 152.792969 Z M 57 100 "/>
+</clipPath>
+<clipPath id="exCASE-clip-5">
+<path clip-rule="nonzero" d="M 114 100 L 166 100 L 166 152.792969 L 114 152.792969 Z M 114 100 "/>
+</clipPath>
+<clipPath id="exCASE-clip-6">
+<path clip-rule="nonzero" d="M 169 100 L 221 100 L 221 152.792969 L 169 152.792969 Z M 169 100 "/>
+</clipPath>
+<clipPath id="exCASE-clip-7">
+<path clip-rule="nonzero" d="M 0.390625 37 L 50 37 L 50 76 L 0.390625 76 Z M 0.390625 37 "/>
+</clipPath>
+<clipPath id="exCASE-clip-8">
+<path clip-rule="nonzero" d="M 0.390625 117 L 50 117 L 50 152.792969 L 0.390625 152.792969 Z M 0.390625 117 "/>
+</clipPath>
+<clipPath id="exCASE-clip-9">
+<path clip-rule="nonzero" d="M 293 100 L 346 100 L 346 152.792969 L 293 152.792969 Z M 293 100 "/>
+</clipPath>
+<clipPath id="exCASE-clip-10">
+<path clip-rule="nonzero" d="M 280 115 L 292 115 L 292 152.792969 L 280 152.792969 Z M 280 115 "/>
+</clipPath>
+</defs>
+<g clip-path="url(#exCASE-clip-0)">
+
+</g>
+<g clip-path="url(#exCASE-clip-1)">
+<path fill-rule="nonzero" fill="rgb(100%, 100%, 100%)" fill-opacity="1" d="M 383.097656 66.894531 L 383.121094 22.21875 C 381.921875 20.054688 380.203125 18.328125 378.023438 17.128906 L 333.277344 17.167969 L 333.277344 59.859375 C 334.40625 63.332031 336.933594 65.832031 340.394531 66.992188 Z M 399.019531 18.164062 L 399.019531 82.910156 L 342.085938 82.96875 C 330.492188 82.785156 317.882812 74.308594 317.773438 61.867188 L 317.238281 0.261719 L 372.140625 0.121094 C 384.601562 0.0898438 394.875 6.910156 399.019531 18.164062 "/>
+</g>
+<g clip-path="url(#exCASE-clip-2)">
+<path fill-rule="nonzero" fill="rgb(99.79248%, 99.82605%, 99.742126%)" fill-opacity="1" d="M 399.019531 100.835938 L 399.019531 109.800781 L 357.242188 109.789062 L 357.21875 122.789062 L 361.1875 121.789062 L 386.988281 121.730469 L 386.988281 130.691406 L 361.25 130.851562 C 359.632812 130.863281 357.382812 133.347656 357.375 134.699219 L 357.324219 142.683594 L 399.019531 142.671875 L 399.019531 151.636719 L 348.214844 151.640625 L 348.214844 100.832031 Z M 399.019531 100.835938 "/>
+</g>
+<path fill-rule="nonzero" fill="rgb(99.900818%, 99.967957%, 99.992371%)" fill-opacity="1" d="M 95.765625 47.035156 C 92.839844 47.050781 90.664062 45.710938 88.988281 44.359375 L 77.386719 34.984375 L 77.285156 58.058594 C 77.28125 59.128906 77.90625 61.925781 79.304688 61.929688 L 139.722656 62.109375 L 140.011719 81.917969 L 86.1875 81.9375 L 57.316406 47.09375 L 57.375 1.199219 L 139.722656 1.3125 L 140.007812 20.179688 L 94.613281 20.082031 L 77.375 9.039062 L 77.324219 27.148438 L 129.058594 27.121094 L 128.796875 46.871094 Z M 95.765625 47.035156 "/>
+<path fill-rule="nonzero" fill="rgb(100%, 100%, 100%)" fill-opacity="1" d="M 228.703125 82.875 L 228.679688 34.125 L 286.207031 33.933594 C 290.464844 33.917969 293.277344 30.355469 294.28125 27.246094 C 295.222656 24.339844 293.394531 17.511719 289.347656 17.484375 L 228.730469 17.101562 L 228.734375 0.101562 L 288.121094 0.644531 C 301.214844 0.765625 310.296875 12.757812 310.523438 24.628906 C 310.765625 37.191406 301.507812 49.507812 288.160156 49.652344 L 244.648438 50.132812 L 244.632812 82.871094 Z M 228.703125 82.875 "/>
+<path fill-rule="nonzero" fill="rgb(99.900818%, 99.961853%, 99.893188%)" fill-opacity="1" d="M 192.648438 41.539062 L 224.234375 82.398438 L 204.621094 82.988281 L 182.433594 54.703125 L 160.117188 82.980469 L 140.324219 82.316406 L 172.050781 41.820312 L 142.804688 4.449219 C 141.734375 3.078125 140.269531 2.613281 141.234375 0.15625 L 159.785156 0.34375 L 170.113281 13.070312 C 174.121094 18.011719 177.277344 23.472656 182.460938 28.273438 L 204.898438 0.351562 L 224.429688 0.804688 Z M 192.648438 41.539062 "/>
+<g clip-path="url(#exCASE-clip-3)">
+<path fill-rule="nonzero" fill="rgb(99.900818%, 99.967957%, 99.992371%)" fill-opacity="1" d="M 275.523438 152.597656 L 229.75 152.53125 L 224.167969 152.230469 C 223.40625 148.472656 223.347656 144.800781 224.234375 140.9375 L 262.308594 140.222656 C 265.089844 140.167969 265.554688 133.042969 263.785156 131.8125 L 223.765625 131.707031 L 223.707031 100.828125 L 275.425781 100.828125 L 275.429688 111.707031 L 237.949219 112.1875 C 235.429688 112.640625 235.074219 117.351562 234.796875 120.507812 L 275.507812 120.785156 Z M 275.523438 152.597656 "/>
+</g>
+<g clip-path="url(#exCASE-clip-4)">
+<path fill-rule="nonzero" fill="rgb(99.79248%, 99.830627%, 99.842834%)" fill-opacity="1" d="M 98.222656 140.628906 L 98.25 117.714844 C 98.242188 115.5 97.570312 113.5 95.917969 111.84375 L 68.335938 111.785156 L 68.300781 133.761719 C 68.113281 136.351562 68.734375 138.707031 70.597656 140.644531 Z M 109.253906 115.179688 L 108.976562 152.480469 L 73.621094 152.46875 C 65.492188 151.804688 59.570312 147.402344 57.441406 139.367188 L 57.355469 100.84375 L 97.128906 100.832031 C 103.4375 102.730469 108.25 108.195312 109.253906 115.179688 "/>
+</g>
+<g clip-path="url(#exCASE-clip-5)">
+<path fill-rule="nonzero" fill="rgb(100%, 100%, 100%)" fill-opacity="1" d="M 165.710938 120.761719 L 165.855469 131.722656 L 125.121094 131.710938 L 125.09375 152.558594 C 121.375 152.703125 118.230469 152.953125 114.265625 152.1875 L 114.113281 100.832031 L 165.859375 100.828125 L 165.859375 111.734375 L 129.136719 112.042969 C 125.574219 112.074219 125.308594 117.058594 125.511719 120.558594 Z M 165.710938 120.761719 "/>
+</g>
+<g clip-path="url(#exCASE-clip-6)">
+<path fill-rule="nonzero" fill="rgb(99.79248%, 99.830627%, 99.842834%)" fill-opacity="1" d="M 220.410156 120.742188 L 220.636719 131.71875 L 180.902344 131.714844 L 180.597656 152.214844 C 176.863281 152.925781 173.609375 152.734375 169.917969 152.527344 L 169.917969 100.828125 L 220.640625 100.828125 L 220.648438 111.695312 L 183.128906 112.242188 C 180.359375 112.28125 179.863281 119.464844 181.65625 120.660156 Z M 220.410156 120.742188 "/>
+</g>
+<g clip-path="url(#exCASE-clip-7)">
+<path fill-rule="nonzero" fill="rgb(99.79248%, 99.830627%, 99.842834%)" fill-opacity="1" d="M 32.191406 62.792969 C 36.972656 62.792969 39.011719 59.628906 38.644531 55.546875 C 38.085938 49.328125 28.425781 48.636719 19.457031 49.789062 C 15.644531 50.28125 12.335938 51.457031 11.722656 55.816406 C 11.351562 58.460938 13.957031 62.785156 17.71875 62.785156 Z M 43.25 70.609375 C 34.738281 77.078125 13.703125 76.5625 5.871094 69.53125 C -0.398438 63.902344 -1.316406 52.832031 3.476562 46.027344 C 10.828125 35.585938 33.816406 35.777344 43.507812 42.113281 C 51.035156 47.035156 52.707031 63.425781 43.25 70.609375 "/>
+</g>
+<g clip-path="url(#exCASE-clip-8)">
+<path fill-rule="nonzero" fill="rgb(99.900818%, 99.967957%, 99.992371%)" fill-opacity="1" d="M 15.769531 129.125 C 11.683594 129.472656 9.964844 133.132812 10.527344 137.128906 C 10.929688 139.996094 14.613281 141.734375 17.554688 141.242188 C 21.46875 140.582031 22.96875 138.164062 22.691406 134.191406 C 22.476562 131.089844 19.675781 128.789062 15.769531 129.125 M 36.085938 140.371094 C 36.558594 139.292969 39.488281 138.667969 39.855469 137.523438 C 40.480469 135.5625 40.578125 133.921875 39.113281 131.984375 C 36.765625 128.878906 32.804688 127.710938 29.023438 129.347656 C 33.5 134.460938 33.289062 140.007812 30.695312 145.253906 C 28.449219 149.792969 23.335938 152.523438 17.621094 152.773438 C 7.367188 153.222656 -0.285156 145.9375 0.4375 135.671875 C 0.742188 131.347656 0.9375 126.539062 4.285156 123.519531 C 12.929688 115.726562 33.714844 115.71875 43.46875 121.710938 C 48.585938 124.855469 49.492188 129.921875 49.667969 135.730469 C 49.925781 144.125 44.34375 151.28125 35.484375 150.667969 C 35.695312 147.3125 34.570312 143.824219 36.085938 140.371094 "/>
+</g>
+<path fill-rule="nonzero" fill="rgb(99.79248%, 99.82605%, 99.742126%)" fill-opacity="1" d="M 32.597656 0.175781 C 37.113281 0.136719 42.1875 1.515625 45.53125 5.253906 C 51.21875 11.617188 51.636719 22.097656 46.148438 28.820312 C 42.78125 32.945312 36.710938 34.160156 31.316406 32.886719 C 22.664062 30.839844 16.195312 23.921875 10.808594 16.972656 L 10.550781 34.023438 L 1.570312 34.011719 L 1.597656 0.398438 C 11.460938 -1.589844 12.238281 4.332031 15.824219 7.855469 L 26.894531 18.734375 C 29.902344 21.6875 35.6875 22.441406 38.875 19.75 C 40.410156 18.453125 39.527344 14.757812 38.5625 13.632812 C 37.386719 12.261719 35.0625 11.878906 32.519531 12.238281 Z M 32.597656 0.175781 "/>
+<path fill-rule="nonzero" fill="rgb(99.900818%, 99.967957%, 99.992371%)" fill-opacity="1" d="M 32.492188 79.527344 C 41.59375 78.421875 49.203125 85.296875 49.820312 94.707031 C 50.199219 100.496094 48.554688 107.3125 42.875 110.28125 C 37.625 113.027344 29.90625 112.496094 25.074219 109.417969 C 19.105469 105.609375 14.882812 101.101562 10.8125 95.585938 L 10.550781 112.726562 L 1.570312 112.699219 L 1.597656 79.089844 C 11.402344 77.121094 12.164062 82.882812 15.820312 86.554688 L 25.808594 96.574219 C 28.894531 99.671875 33.859375 100.921875 38.269531 99.351562 C 40.035156 98.722656 39.984375 94.46875 38.945312 92.960938 C 37.878906 91.417969 35.234375 90.808594 32.582031 90.859375 Z M 32.492188 79.527344 "/>
+<g clip-path="url(#exCASE-clip-9)">
+<path fill-rule="nonzero" fill="rgb(100%, 100%, 100%)" fill-opacity="1" d="M 324.359375 152.332031 C 320.691406 152.894531 317.375 152.960938 313.507812 152.101562 L 313.335938 111.816406 L 293.484375 111.785156 L 293.519531 100.828125 L 345.128906 100.828125 C 345.332031 104.523438 345.527344 107.773438 344.816406 111.511719 L 324.3125 111.804688 Z M 324.359375 152.332031 "/>
+</g>
+<g clip-path="url(#exCASE-clip-10)">
+<path fill-rule="nonzero" fill="rgb(99.900818%, 99.967957%, 99.992371%)" fill-opacity="1" d="M 291.421875 151.953125 C 287.617188 153.109375 284.398438 152.976562 280.625 152.074219 L 280.625 116.210938 L 291.464844 115.863281 Z M 291.421875 151.953125 "/>
+</g>
+<path fill-rule="nonzero" fill="rgb(100%, 100%, 100%)" fill-opacity="1" d="M 291.445312 111.792969 L 280.488281 111.792969 L 280.488281 100.835938 L 291.445312 100.835938 Z M 291.445312 111.792969 "/>
+</svg>
+</div>
   </section>
 
   <!-- ==================== FINAL ==================== -->
@@ -539,27 +644,27 @@ const IMG = { steeldeck:'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBD
 const TEMPO_INATIVIDADE = 75000, TEMPO_CHAMADA = 7000;
 
 const CHAMADAS = [
-  'Você sabe qual sistema construtivo entrega mais velocidade e precisão?',
+  'Você conhece as soluções que estão transformando a construção offsite no Brasil?',
   'Teste seu conhecimento em construção offsite. Você está pronto?',
   '4 perguntas. 4 produtos. Você consegue acertar todas?',
-  'O futuro da construção civil está aqui. Mas você conhece as soluções que fazem isso acontecer?'
+  'O futuro da construção offsite está aqui. Mas você conhece as soluções que fazem isso acontecer?'
 ];
 
 const QUIZ = [
   {
     prod:'PERGUNTA 01 — STEEL-DECK', img:'steeldeck',
-    enunciado:'Qual das alternativas abaixo descreve corretamente uma vantagem do sistema Steel-Deck na execução de lajes?',
+    enunciado:'Qual das alternativas abaixo descreve corretamente uma vantagem do sistema Steel-Deck na execução de lajes em projetos de construção offsite?',
     alts:[
       'Elimina completamente a necessidade de concreto na estrutura, reduzindo o peso total da edificação.',
       'Atua como forma colaborante, interagindo com o concreto e diminuindo a necessidade de escoramentos convencionais.',
-      'É indicado exclusivamente para obras residenciais de pequeno porte, por conta de suas dimensões reduzidas.',
+      'Substitui completamente o concreto na composição da laje, reduzindo o peso estrutural total da edificação.',
       'Funciona apenas como acabamento decorativo inferior da laje, sem função estrutural.'
     ],
     correta:1,
     case:{
       titulo:'Steel-Deck MBP',
-      lead:'O Steel-Deck MBP atua como forma colaborante de aço, interagindo diretamente com o concreto e transformando-se na armadura positiva da laje. Isso elimina a necessidade de escoramentos convencionais, acelera a execução e torna a obra mais limpa e eficiente.',
-      difs:['Alto desempenho estrutural','Redução de escoramentos','Maior velocidade executiva','Obra mais limpa e eficiente'],
+      lead:'O Steel-Deck MBP atua como forma colaborante de aço, interagindo diretamente com o concreto e transformando-se na armadura positiva da laje. Isso diminui a necessidade de escoramentos convencionais, acelera a execução e torna a obra mais limpa e eficiente.',
+      difs:['Alto desempenho estrutural','Redução da quantidade de escoramentos','Maior velocidade executiva','Obra mais limpa e eficiente'],
       caseNome:'Aeroporto de Foz do Iguaçu',
       dados:[],
       dadoTxt:'Lajes executadas com o sistema Steel-Deck MBP 67/900 — alta performance estrutural com agilidade de execução.'
@@ -567,17 +672,17 @@ const QUIZ = [
   },
   {
     prod:'PERGUNTA 02 — SOLUÇÕES PERFURADAS', img:'perfuradas',
-    enunciado:'As soluções perfuradas da MBP Isoblock são desenvolvidas especialmente para qual aplicação?',
+    enunciado:'Em projetos de construção offsite que valorizam estética e desempenho, as soluções perfuradas da MBP Isoblock são especialmente indicadas para qual aplicação?',
     alts:[
       'Cobertura de galpões frigoríficos que exigem isolamento térmico máximo e vedação total.',
       'Fachadas ventiladas que demandam ventilação natural, controle de luminosidade e estética diferenciada.',
-      'Pisos industriais submetidos a altas cargas e tráfego intenso de equipamentos pesados.',
-      'Divisórias internas de ambientes hospitalares com padrão sala limpa e fácil higienização.'
+      'Coberturas de edificações modulares que exigem vedação total e isolamento acústico.',
+      'Painéis de fechamento lateral em galpões industriais com alta exigência de resistência mecânica.'
     ],
     correta:1,
     case:{
       titulo:'Soluções Perfuradas',
-      lead:'Desenvolvidas exclusivamente para fachadas ventiladas, com perfuração técnica que garante ventilação natural, controle de luminosidade e estética diferenciada — combinando funcionalidade e design em projetos industriais, comerciais e arquitetônicos.',
+      lead:'Desenvolvidas para fachadas ventiladas, com perfuração técnica que garante ventilação natural, controle de luminosidade e estética diferenciada — combinando funcionalidade e design em projetos industriais, comerciais e arquitetônicos, compatíveis com a construção offsite.',
       difs:['Ventilação eficiente','Controle de luz natural','Acabamento moderno e diferenciado'],
       caseNome:'Shopping Pulse Open Mall — Chapecó, SC',
       dados:[ {v:'+21 mil', k:'m² de área construída'} ],
@@ -586,7 +691,7 @@ const QUIZ = [
   },
   {
     prod:'PERGUNTA 03 — TELHA EASYROOF', img:'easyroof',
-    enunciado:'A Telha EasyRoof é uma solução de cobertura com núcleo em PIR. Qual é o principal benefício desse material para a edificação?',
+    enunciado:'A Telha EasyRoof é amplamente utilizada em projetos de construção offsite de grande porte. Qual é o principal benefício do seu núcleo em PIR para a edificação?',
     alts:[
       'Alta resistência a impactos físicos, tornando-a ideal para coberturas expostas a granizo e ventos fortes.',
       'Transparência parcial que permite iluminação natural sem necessidade de claraboias adicionais.',
@@ -597,7 +702,7 @@ const QUIZ = [
     case:{
       titulo:'Telha EasyRoof',
       lead:'Núcleo em PIR (Poliisocianurato), um dos isolantes de maior performance do mercado. Fator K de 0,022 W/m.K: elevado desempenho térmico, redução da temperatura interna e dos custos com climatização. Reação ao fogo NBR 16626 Classe II-A e certificação internacional FM Approvals.',
-      difs:['Fator K = 0,022 W/m.K','Excelente estanqueidade','Obra limpa, rápida e leve','FM Approvals 4880/4881'],
+      difs:['Fator K = 0,022 W/m.K','Redução da estrutura de cobertura','Excelente estanqueidade','Obra limpa, rápida e leve','NBR 16626 Classe II-A','FM Approvals 4880/4881'],
       caseNome:'Plena Alimentos — Tocantins',
       dados:[
         {v:'35.000', k:'m² de Telha EasyRoof'},
@@ -612,10 +717,10 @@ const QUIZ = [
   },
   {
     prod:'PERGUNTA 04 — PAINÉIS EASYCLEAN', img:'easyclean',
-    enunciado:'Os Painéis EasyClean são especialmente recomendados para quais tipos de ambientes?',
+    enunciado:'Os Painéis EasyClean são uma solução termoisolante com alto padrão de acabamento. Em qual cenário da construção offsite eles se destacam?',
     alts:[
       'Ambientes externos com alta exposição solar, onde a resistência UV é o principal requisito técnico.',
-      'Coberturas industriais de grande vão, onde a resistência estrutural é mais importante que o acabamento.',
+      'Módulos de armazenamento frigorífico offsite, onde o isolamento térmico é o principal requisito técnico.',
       'Ambientes hospitalares, indústrias farmacêuticas e aplicações com padrão sala limpa, onde higiene e vedação são essenciais.',
       'Fachadas arquitetônicas voltadas para projetos de design, onde a estética sobrepõe os requisitos técnicos.'
     ],
@@ -623,7 +728,7 @@ const QUIZ = [
     case:{
       titulo:'Painéis EasyClean',
       lead:'Superfície totalmente lisa e sem arestas, núcleo em PIR: higienização prática, excelente vedação e alta performance construtiva. Desenvolvido para ambientes hospitalares, indústrias farmacêuticas e aplicações com padrão sala limpa.',
-      difs:['Superfície higiênica','Acabamento liso sem arestas','Fator K = 0,022 W/m.K','FM Approvals 4880/4881'],
+      difs:['Superfície higiênica e fácil de limpar','Acabamento liso sem arestas','Fator K = 0,022 W/m.K','NBR 16626 Classe II-A','FM Approvals 4880/4881'],
       caseNome:'ClearCorrect — Curitiba, PR',
       dados:[],
       dadoTxt:'Ambientes com padrão sala limpa executados com Painéis EasyClean — higiene, vedação e eficiência térmica para a indústria de saúde.'
@@ -651,11 +756,21 @@ document.addEventListener('pointerdown', e => { const t = e.target.closest('.btn
 function fit(){ $('stage').style.transform = `scale(${Math.min(innerWidth/1080, innerHeight/1920)})`; }
 addEventListener('resize', fit); fit();
 
-function proximaChamada(){
-  const el = $('chamada'); el.classList.remove('show');
-  setTimeout(() => { el.textContent = CHAMADAS[chamadaIdx % CHAMADAS.length]; chamadaIdx++; el.classList.add('show'); }, 650);
+function montarChamada(txt){
+  const el = $('chamada');
+  // split into words, stagger entrance (micro cascade ~36ms, total budget < 500ms)
+  el.innerHTML = txt.split(' ').map((w,i) =>
+    `<span class="w" style="animation-delay:${Math.min(i*36, 440)}ms">${w}</span>`
+  ).join(' ');
 }
-function iniciarDescanso(){ show('idle'); clearInterval(chamadaTimer); chamadaIdx = 0; proximaChamada(); chamadaTimer = setInterval(proximaChamada, TEMPO_CHAMADA); }
+function proximaChamada(primeira){
+  const el = $('chamada');
+  const trocar = () => { montarChamada(CHAMADAS[chamadaIdx % CHAMADAS.length]); chamadaIdx++; };
+  if (primeira === true){ trocar(); return; }          // first paint: no exit
+  el.classList.add('leaving');                          // block lifts + fades out
+  setTimeout(() => { el.classList.remove('leaving'); trocar(); }, 340);
+}
+function iniciarDescanso(){ show('idle'); clearInterval(chamadaTimer); chamadaIdx = 0; proximaChamada(true); chamadaTimer = setInterval(() => proximaChamada(false), TEMPO_CHAMADA); }
 function pingAtividade(){ clearTimeout(idleTimer); if(!$('idle').classList.contains('active')) idleTimer = setTimeout(iniciarDescanso, TEMPO_INATIVIDADE); }
 ['pointerdown','touchstart'].forEach(ev => addEventListener(ev, pingAtividade, {passive:true}));
 
