@@ -154,25 +154,69 @@ body{display:flex;align-items:center;justify-content:center;font-family:'NeuePla
 
 /* ============================ CASE ============================ */
 .case-wrap{flex:1;display:flex;flex-direction:column;min-height:0;position:relative;z-index:2}
-.case-img{height:620px;position:relative;background:var(--grafite-800);background-size:cover;background-position:center;flex-shrink:0}
-.case-card{background:rgba(30,30,29,.82);border-top:6px solid var(--azul);padding:34px 96px 36px}
-.case-card .case-eyebrow{font-family:'NeuePlakSemi';font-size:24px;letter-spacing:3px;color:var(--azul);margin-bottom:10px}
-.case-card .case-nome{font-family:'NeuePlakXBlack';font-size:46px;line-height:1.02;margin-bottom:22px}
-.case-card .dados{display:flex;flex-wrap:wrap;gap:14px 52px}
-.case-card .dado{display:flex;align-items:baseline;gap:12px}
-.case-card .dado .v{font-family:'NeuePlakXBlack';font-size:40px;color:var(--azul)}
-.case-card .dado .k{font-family:'NeuePlakText';font-size:23px;color:#D9D9D7}
-.case-card .dado-txt{font-family:'NeuePlakTextLight';font-size:26px;line-height:1.4;color:#E8E8E6}
-.case-info{flex:1;display:flex;flex-direction:column;padding:44px 96px 176px;min-height:0}
-.case-info .selo{display:inline-flex;align-items:center;gap:18px;font-family:'NeuePlakSemi';font-size:28px;letter-spacing:3px;color:var(--azul);margin-top:36px}
-.case-info .selo .ic{width:52px;height:52px;border-radius:50%;background:var(--azul);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.case-info .selo.nok{color:#D9D9D7}
-.case-info .selo.nok .ic{background:#6E6E6C}
-.case-info h2{font-family:'NeuePlakXBlack';font-size:58px;line-height:1;letter-spacing:-.5px;margin-bottom:26px}
-.case-info .lead{font-family:'NeuePlakTextLight';font-size:28px;line-height:1.42;color:#E8E8E6;margin-bottom:32px}
-.case-info .difs{display:flex;flex-wrap:wrap;gap:16px}
-.case-info .dif{font-family:'NeuePlakSemi';font-size:22px;letter-spacing:.6px;border:2px solid var(--azul);color:var(--azul);padding:13px 22px}
-.case-info .btn{margin-top:40px}
+.case-img{height:500px;position:relative;background:var(--grafite-800);background-size:cover;background-position:center;flex-shrink:0}
+.case-img::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom, rgba(30,30,29,0) 60%, rgba(30,30,29,.55))}
+
+/* scrollable content region */
+.case-scroll{flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;
+  padding:40px 96px 28px;scrollbar-width:thin;scrollbar-color:var(--azul) transparent;
+  animation:entra .6s ease .08s both}
+.case-scroll::-webkit-scrollbar{width:8px}
+.case-scroll::-webkit-scrollbar-thumb{background:var(--azul);border-radius:8px}
+.case-scroll::-webkit-scrollbar-track{background:transparent}
+
+.case-scroll .selo{display:inline-flex;align-items:center;gap:18px;font-family:'NeuePlakSemi';font-size:28px;letter-spacing:3px;color:var(--azul);margin-bottom:30px}
+.case-scroll .selo .ic{width:52px;height:52px;border-radius:50%;background:var(--azul);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.case-scroll .selo.nok{color:#D9D9D7}
+.case-scroll .selo.nok .ic{background:#6E6E6C}
+
+.case-titulo{font-family:'NeuePlakXBlack';font-size:58px;line-height:1;letter-spacing:-.5px;margin-bottom:26px}
+.case-scroll .lead{font-family:'NeuePlakText';font-size:29px;line-height:1.42;color:#F2F2F0;margin-bottom:40px}
+
+.sec-tit{font-family:'NeuePlakSemi';font-size:23px;letter-spacing:3px;color:var(--azul);
+  padding-bottom:14px;margin-bottom:22px;border-bottom:1px solid var(--linha)}
+.sobre{margin-bottom:42px}
+.sobre p{font-family:'NeuePlakTextLight';font-size:27px;line-height:1.5;color:#E2E2E0;margin-bottom:20px}
+.sobre p:last-child{margin-bottom:0}
+
+.case-scroll .difs{display:flex;flex-wrap:wrap;gap:16px;margin-bottom:46px}
+.case-scroll .dif{font-family:'NeuePlakSemi';font-size:22px;letter-spacing:.6px;border:2px solid var(--azul);color:var(--azul);padding:13px 22px}
+
+.case-block{background:rgba(30,30,29,.55);border-left:6px solid var(--azul);padding:36px 40px;margin-bottom:8px}
+.case-block .case-eyebrow{font-family:'NeuePlakSemi';font-size:24px;letter-spacing:3px;color:var(--azul);margin-bottom:12px}
+.case-block .case-nome{font-family:'NeuePlakXBlack';font-size:46px;line-height:1.02;margin-bottom:22px}
+.case-block .case-desc{font-family:'NeuePlakTextLight';font-size:27px;line-height:1.46;color:#E8E8E6;margin-bottom:34px}
+.case-block .case-desc:empty{display:none;margin:0}
+.dados-tit{margin-top:4px}
+.case-block .dados{display:flex;flex-direction:column;gap:18px;margin-bottom:30px}
+.case-block .dados.num{flex-flow:row wrap;gap:22px 52px}
+.case-block .dado{display:flex;align-items:baseline;gap:14px}
+.case-block .dado .v{font-family:'NeuePlakXBlack';font-size:42px;color:var(--azul);line-height:1}
+.case-block .dado .k{font-family:'NeuePlakText';font-size:24px;color:#D9D9D7}
+.case-block .dado-li{position:relative;padding-left:34px;font-family:'NeuePlakText';font-size:27px;line-height:1.4;color:#EDEDEB}
+.case-block .dado-li::before{content:'';position:absolute;left:0;top:.62em;width:16px;height:16px;border:3px solid var(--azul);transform:translateY(-50%)}
+.case-block .dado-txt{font-family:'NeuePlakTextLight';font-size:27px;line-height:1.46;color:#E8E8E6}
+.case-block .case-fecho{font-family:'NeuePlakTextLight';font-size:27px;line-height:1.46;color:#E8E8E6;margin-top:8px}
+.case-block .case-fecho:empty{display:none}
+.scroll-end{height:8px}
+
+/* scroll affordance */
+.scroll-hint{position:absolute;left:50%;transform:translateX(-50%);bottom:296px;z-index:4;
+  width:62px;height:62px;border-radius:50%;background:var(--azul);color:var(--grafite-900);
+  display:flex;align-items:center;justify-content:center;box-shadow:0 8px 26px rgba(0,0,0,.32);
+  animation:hintBounce 1.7s ease-in-out infinite;transition:opacity .3s ease;pointer-events:none}
+.scroll-hint svg{width:30px;height:30px}
+.scroll-hint.hide{opacity:0}
+@keyframes hintBounce{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,9px)}}
+
+/* fixed footer: button + expo, with fade so scrolled text dissolves under it */
+.case-foot{flex-shrink:0;position:relative;padding:30px 96px 26px;z-index:3;background:var(--grafite)}
+.case-foot::before{content:'';position:absolute;left:0;right:0;top:-46px;height:46px;
+  background:linear-gradient(to bottom, rgba(30,30,29,0), var(--grafite));pointer-events:none}
+.case-foot .btn{width:100%;justify-content:center;margin:0 0 22px}
+.case-foot .q-expo{position:static;transform:none;left:auto;bottom:auto;display:flex;justify-content:center;opacity:.85}
+.case-foot .q-expo svg{height:64px}
+@media (prefers-reduced-motion: reduce){ .scroll-hint{animation:none} .case-scroll{animation:none} }
 
 /* ============================ FINAL ============================ */
 #final .final-inner{flex:1;display:flex;flex-direction:column;justify-content:center;padding:0 96px;position:relative;z-index:2}
@@ -530,20 +574,31 @@ body{display:flex;align-items:center;justify-content:center;font-family:'NeuePla
     <div class="bar progress" id="progressC"><span></span><span></span><span></span><span></span></div>
     <div class="case-wrap">
       <div class="case-img" id="cImg"></div>
-      <div class="case-card">
-        <div class="case-eyebrow">CASE</div>
-        <div class="case-nome" id="cCaseNome"></div>
-        <div class="dados" id="cDados"></div>
-      </div>
-      <div class="case-info">
-        <h2 id="cTitulo"></h2>
-        <div class="lead" id="cLead"></div>
-        <div class="difs" id="cDifs"></div>
+      <div class="case-scroll" id="cScroll">
         <div class="selo" id="cSelo"></div>
-        <button class="btn" id="btnNext"></button>
+        <h2 class="case-titulo" id="cTitulo"></h2>
+        <div class="lead" id="cLead"></div>
+
+        <div class="sec-tit">SOBRE O PRODUTO</div>
+        <div class="sobre" id="cSobre"></div>
+
+        <div class="sec-tit">DIFERENCIAIS</div>
+        <div class="difs" id="cDifs"></div>
+
+        <div class="case-block" id="cBlock">
+          <div class="case-eyebrow">CASE</div>
+          <div class="case-nome" id="cCaseNome"></div>
+          <div class="case-desc" id="cCaseDesc"></div>
+          <div class="sec-tit dados-tit" id="cDadosTit">DADOS DA OBRA</div>
+          <div class="dados" id="cDados"></div>
+          <div class="case-fecho" id="cFecho"></div>
+        </div>
+        <div class="scroll-end"></div>
       </div>
-    </div>
-    <div class="q-expo"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="74" style="display:block" viewBox="0 0 400.204 153.395">
+      <div class="scroll-hint" id="cHint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></div>
+      <div class="case-foot">
+        <button class="btn" id="btnNext"></button>
+        <div class="q-expo"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="74" style="display:block" viewBox="0 0 400.204 153.395">
 <defs>
 <clipPath id="exCASE-clip-0">
 <path clip-rule="nonzero" d="M 0.390625 0 L 399.019531 0 L 399.019531 152.792969 L 0.390625 152.792969 Z M 0.390625 0 "/>
@@ -620,6 +675,8 @@ body{display:flex;align-items:center;justify-content:center;font-family:'NeuePla
 <path fill-rule="nonzero" fill="rgb(100%, 100%, 100%)" fill-opacity="1" d="M 291.445312 111.792969 L 280.488281 111.792969 L 280.488281 100.835938 L 291.445312 100.835938 Z M 291.445312 111.792969 "/>
 </svg>
 </div>
+      </div>
+    </div>
   </section>
 
   <!-- ==================== FINAL ==================== -->
@@ -664,10 +721,20 @@ const QUIZ = [
     case:{
       titulo:'Steel-Deck MBP',
       lead:'O Steel-Deck MBP atua como forma colaborante de aço, interagindo diretamente com o concreto e transformando-se na armadura positiva da laje. Isso diminui a necessidade de escoramentos convencionais, acelera a execução e torna a obra mais limpa e eficiente.',
+      sobre:[
+        'O Steel-Deck MBP 67/900 é a solução técnica da MBP Isoblock para lajes em concreto, desenvolvida para oferecer alta performance estrutural, agilidade na execução e maior eficiência construtiva.',
+        'A forma colaborante de aço interage diretamente com o concreto, transformando-se na armadura positiva da laje e proporcionando um sistema construtivo moderno, seguro e otimizado, com alto potencial de aplicação em projetos de construção offsite, onde velocidade e precisão de execução são essenciais.',
+        'Sua aplicação permite maior velocidade de montagem, redução de resíduos na obra, execução simultânea de múltiplos pavimentos e diminição da necessidade de escoramentos convencionais.',
+        'Além da eficiência estrutural e operacional, o Steel-Deck também pode atuar como acabamento final inferior da laje, permitindo a aplicação direta de pintura e contribuindo para um resultado estético mais limpo e funcional.'
+      ],
       difs:['Alto desempenho estrutural','Redução da quantidade de escoramentos','Maior velocidade executiva','Obra mais limpa e eficiente'],
       caseNome:'Aeroporto de Foz do Iguaçu',
+      casePendente:true,
+      caseDesc:'',
+      dadosTipo:'txt',
       dados:[],
-      dadoTxt:'Lajes executadas com o sistema Steel-Deck MBP 67/900 — alta performance estrutural com agilidade de execução.'
+      dadoTxt:'Lajes executadas com o sistema Steel-Deck MBP 67/900 — alta performance estrutural com agilidade de execução. Informações detalhadas do case a serem fornecidas pelo Grupo MBP.',
+      fecho:''
     }
   },
   {
@@ -682,11 +749,22 @@ const QUIZ = [
     correta:1,
     case:{
       titulo:'Soluções Perfuradas',
-      lead:'Desenvolvidas para fachadas ventiladas, com perfuração técnica que garante ventilação natural, controle de luminosidade e estética diferenciada — combinando funcionalidade e design em projetos industriais, comerciais e arquitetônicos, compatíveis com a construção offsite.',
+      lead:'As soluções perfuradas da MBP Isoblock são desenvolvidas para diferentes fachadas ventiladas, sendo também uma solução compatível com projetos de construção offsite que valorizam estética, ventilação natural e eficiência na montagem. Sua perfuração técnica garante ventilação natural, controle de luminosidade e estética diferenciada — combinando funcionalidade e design em projetos industriais, comerciais e arquitetônicos.',
+      sobre:[
+        'A MBP Isoblock investe constantemente em tecnologia para oferecer ao mercado soluções perfuradas voltadas exclusivamente para aplicações em fachadas ventiladas. Desenvolvidas a partir de telhas trapezoidais ou onduladas com perfuração técnica, essas soluções são ideais para projetos que demandam ventilação natural, controle de luminosidade e valorização estética da edificação.',
+        'Além da funcionalidade, contribuem para um visual moderno, sofisticado e diferenciado em aplicações industriais, comerciais e arquitetônicas. As soluções perfuradas MBP ampliam as possibilidades construtivas e arquitetônicas, agregando desempenho, identidade visual e eficiência aos projetos.'
+      ],
       difs:['Ventilação eficiente','Controle de luz natural','Acabamento moderno e diferenciado'],
       caseNome:'Shopping Pulse Open Mall — Chapecó, SC',
-      dados:[ {v:'+21 mil', k:'m² de área construída'} ],
-      dadoTxt:'Ampla ventilação e iluminação natural integradas a um modelo arquitetônico contemporâneo e sustentável.'
+      caseDesc:'Referência em conceito arquitetônico contemporâneo, o Pulse Open Mall é um dos projetos mais expressivos executados com as soluções perfuradas da MBP Isoblock.',
+      dadosTipo:'lista',
+      dados:[
+        'Mais de 21 mil metros quadrados de área construída',
+        'Ampla ventilação e iluminação natural integradas ao projeto',
+        'Estética diferenciada com modelo integrado e sustentável'
+      ],
+      dadoTxt:'',
+      fecho:'Um projeto que une modernidade e design, eficiência construtiva e sustentabilidade — demonstrando como as soluções perfuradas MBP transformam a fachada em elemento arquitetônico de alto impacto visual.'
     }
   },
   {
@@ -701,18 +779,25 @@ const QUIZ = [
     correta:2,
     case:{
       titulo:'Telha EasyRoof',
-      lead:'Núcleo em PIR (Poliisocianurato), um dos isolantes de maior performance do mercado. Fator K de 0,022 W/m.K: elevado desempenho térmico, redução da temperatura interna e dos custos com climatização. Reação ao fogo NBR 16626 Classe II-A e certificação internacional FM Approvals.',
-      difs:['Fator K = 0,022 W/m.K','Redução da estrutura de cobertura','Excelente estanqueidade','Obra limpa, rápida e leve','NBR 16626 Classe II-A','FM Approvals 4880/4881'],
+      lead:'A Telha EasyRoof possui núcleo em PIR (Poliisocianurato), um dos materiais isolantes de maior performance do mercado. Seu baixo fator K (0,022 W/m.K) garante elevado desempenho térmico, reduzindo significativamente a temperatura interna e os custos com climatização da edificação.',
+      sobre:[
+        'Solução de cobertura termo isolante com núcleo em PIR, desenvolvida para garantir elevado desempenho térmico e eficiência energética. Reduz significativamente a temperatura interna dos ambientes, contribuindo para a diminuição dos custos com climatização.',
+        'Seu sistema de encaixe proporciona praticidade e agilidade na montagem, enquanto o acabamento tipo forro na face interna entrega excelente resultado estético. Além disso, sua geometria estrutural oferece alta resistência mecânica, tornando a Telha EasyRoof ideal para aplicações industriais, comerciais, fachadas de galpões e edificações de grande porte. Uma escolha natural para projetos de construção offsite, pelo seu sistema de montagem ágil e leve.'
+      ],
+      difs:['Desempenho térmico superior (fator K = 0,022 W/m.K)','Redução da estrutura de cobertura','Excelente estanqueidade','Obra limpa, rápida e leve','Reação ao Fogo — NBR 16626, Classe II-A','Certificação internacional FM Approvals (FM 4880 / 4881)'],
       caseNome:'Plena Alimentos — Tocantins',
+      caseDesc:'Uma das maiores operações com Telha EasyRoof já executadas pelo Grupo MBP, o projeto da Plena Alimentos no Tocantins evidencia a capacidade da solução para obras industriais de grande escala.',
+      dadosTipo:'num',
       dados:[
-        {v:'35.000', k:'m² de Telha EasyRoof'},
+        {v:'35.000', k:'m² de Telhas EasyRoof aplicadas'},
         {v:'22.000', k:'m² de EasyFrigo'},
-        {v:'12.000', k:'m de painéis frigoríficos'},
+        {v:'12.000', k:'metros de painéis frigoríficos'},
         {v:'60', k:'portas isoplanas'},
         {v:'40', k:'visores'},
         {v:'4.000', k:'m² de TP40'}
       ],
-      dadoTxt:''
+      dadoTxt:'',
+      fecho:'Uma operação de grande escala que demonstra como as soluções MBP Isoblock entregam velocidade, eficiência e performance técnica em projetos industriais de alta complexidade, exatamente o que a construção offsite exige.'
     }
   },
   {
@@ -727,11 +812,18 @@ const QUIZ = [
     correta:2,
     case:{
       titulo:'Painéis EasyClean',
-      lead:'Superfície totalmente lisa e sem arestas, núcleo em PIR: higienização prática, excelente vedação e alta performance construtiva. Desenvolvido para ambientes hospitalares, indústrias farmacêuticas e aplicações com padrão sala limpa.',
-      difs:['Superfície higiênica e fácil de limpar','Acabamento liso sem arestas','Fator K = 0,022 W/m.K','NBR 16626 Classe II-A','FM Approvals 4880/4881'],
+      lead:'Os Painéis EasyClean foram desenvolvidos para ambientes que exigem elevados padrões de higiene e eficiência térmica. Sua superfície lisa e sem arestas facilita a higienização e garante a vedação necessária para ambientes hospitalares, indústrias farmacêuticas e aplicações com padrão sala limpa.',
+      sobre:[
+        'Painel termoisolante com núcleo em PIR e superfície totalmente lisa, desenvolvido para atender projetos com elevados padrões de acabamento, higiene e eficiência térmica. Indicado para construções offsite e módulos construtivos que exigem alto padrão de acabamento, além de ambientes hospitalares, indústrias farmacêuticas e aplicações com padrão sala limpa, por exemplo. Oferece praticidade na higienização, excelente vedação e alta performance construtiva.'
+      ],
+      difs:['Superfície higiênica e fácil de limpar','Acabamento liso sem arestas','Desempenho térmico superior (fator K = 0,022 W/m.K)','Reação ao Fogo — NBR 16626, Classe II-A','Certificação internacional FM Approvals (FM 4880 / 4881)'],
       caseNome:'ClearCorrect — Curitiba, PR',
+      casePendente:true,
+      caseDesc:'',
+      dadosTipo:'txt',
       dados:[],
-      dadoTxt:'Ambientes com padrão sala limpa executados com Painéis EasyClean — higiene, vedação e eficiência térmica para a indústria de saúde.'
+      dadoTxt:'Ambientes com padrão sala limpa executados com Painéis EasyClean — higiene, vedação e eficiência térmica para a indústria de saúde. Informações detalhadas do case a serem fornecidas pelo Grupo MBP.',
+      fecho:''
     }
   }
 ];
@@ -773,6 +865,10 @@ function proximaChamada(primeira){
 function iniciarDescanso(){ show('idle'); clearInterval(chamadaTimer); chamadaIdx = 0; proximaChamada(true); chamadaTimer = setInterval(() => proximaChamada(false), TEMPO_CHAMADA); }
 function pingAtividade(){ clearTimeout(idleTimer); if(!$('idle').classList.contains('active')) idleTimer = setTimeout(iniciarDescanso, TEMPO_INATIVIDADE); }
 ['pointerdown','touchstart'].forEach(ev => addEventListener(ev, pingAtividade, {passive:true}));
+$('cScroll').addEventListener('scroll', () => {
+  pingAtividade();
+  if($('cScroll').scrollTop > 30) $('cHint').classList.add('hide');
+}, {passive:true});
 
 $('idle').addEventListener('pointerdown', () => { if(MODO_DESCANSO) return; clearInterval(chamadaTimer); show('intro'); pingAtividade(); });
 $('btnStart').addEventListener('pointerdown', () => { idx = 0; score = 0; setTimeout(pergunta, 180); });
@@ -824,15 +920,42 @@ function mostrarCase(ok){
     <span>${ok ? 'VOCÊ ACERTOU · RESPOSTA ' : 'RESPOSTA CORRETA: '}${'ABCD'[q.correta]}</span>`;
   $('cTitulo').textContent = c.titulo;
   $('cLead').textContent = c.lead;
+  $('cSobre').innerHTML = (c.sobre || []).map(p => `<p>${p}</p>`).join('');
   $('cDifs').innerHTML = c.difs.map(d => `<span class="dif">${d}</span>`).join('');
   $('cCaseNome').textContent = c.caseNome;
-  $('cDados').innerHTML = c.dados.length
-    ? c.dados.map(d => `<div class="dado"><span class="v">${d.v}</span><span class="k">${d.k}</span></div>`).join('')
-    : `<div class="dado-txt">${c.dadoTxt}</div>`;
+  $('cCaseDesc').textContent = c.caseDesc || '';
+  // dados: numeric grid, bullet list, or descriptive paragraph
+  const dadosEl = $('cDados'), tit = $('cDadosTit');
+  if(c.dadosTipo === 'num' && c.dados.length){
+    dadosEl.className = 'dados num';
+    dadosEl.innerHTML = c.dados.map(d => `<div class="dado"><span class="v">${d.v}</span><span class="k">${d.k}</span></div>`).join('');
+    tit.style.display = '';
+  } else if(c.dadosTipo === 'lista' && c.dados.length){
+    dadosEl.className = 'dados';
+    dadosEl.innerHTML = c.dados.map(d => `<div class="dado-li">${d}</div>`).join('');
+    tit.style.display = '';
+  } else if(c.dadoTxt){
+    dadosEl.className = 'dados';
+    dadosEl.innerHTML = `<div class="dado-txt">${c.dadoTxt}</div>`;
+    tit.style.display = 'none';
+  } else {
+    dadosEl.innerHTML = ''; tit.style.display = 'none';
+  }
+  $('cFecho').textContent = c.fecho || '';
+  $('cBlock').style.display = c.casePendente ? 'none' : '';
   $('cImg').style.backgroundImage = `url('${IMG[q.img]}')`;
   $('btnNext').innerHTML = (idx < QUIZ.length - 1 ? 'PRÓXIMA PERGUNTA ' : 'VER RESULTADO ') +
     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+  // show first, THEN reset scroll — assigning scrollTop while the screen is
+  // display:none doesn't apply, so the case must be visible before we reset.
+  const sc = $('cScroll'), hint = $('cHint');
+  hint.classList.remove('hide');
   show('case'); pingAtividade();
+  sc.scrollTop = 0;
+  requestAnimationFrame(() => {
+    sc.scrollTop = 0;
+    if(sc.scrollHeight - sc.clientHeight < 24) hint.classList.add('hide');
+  });
 }
 
 $('btnNext').addEventListener('pointerdown', () => { idx++; setTimeout(() => { if(idx < QUIZ.length) pergunta(); else final(); }, 180); });
